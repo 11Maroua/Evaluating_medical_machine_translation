@@ -1,5 +1,7 @@
 # Données médicales sensibles
-###*.tsv
+*.json
+*.csv
+*.tsv
 
 # Sauf les fichiers de config/sample explicitement ajoutés
 !data/sample/*.json
