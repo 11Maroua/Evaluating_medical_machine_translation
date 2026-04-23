@@ -76,11 +76,6 @@ words like "on", "study", "between", or mappings like `nursing → soins` and
 The cleaned dictionary yields a much higher F1 (0.780 vs 0.463) on the documents
 it covers, with only 6 false positives.
 
-The Wilcoxon signed-rank test (W=576.0, p=0.716) shows no significant difference
-in global F1 scores — explained by the low coverage of the cleaned dictionary
-(25/49 docs): on the remaining 24 documents, both dictionaries score 0.0, making
-them statistically indistinguishable at corpus level.
-
 **Conclusion:** The cleaned dictionary is retained for all subsequent evaluations.
 Its precision and low noise make it a more reliable basis for terminology-aware
 evaluation. However, its limited coverage (25/49 docs, 0.82 pairs/doc on average)
@@ -113,8 +108,20 @@ quality — terminological accuracy — that standard metrics completely miss. B
 COMET are moderately correlated (r=+0.408), as both measure surface-level fluency.
 
 GPT-4o achieves strong fluency scores (BLEU=49.15, COMET=0.875), but MEDCON reveals
-terminology gaps that these metrics ignore. Error analysis on the 25 covered documents
-identifies 9 unique missed pairs (e.g. `cardiorespiratory fitness → capacité
-cardiorespiratoire`, `antimicrobial stewardship → gestion responsable des
-antimicrobiens`) and 6 false positives (e.g. `sadness → tristesse`,
-`aftercare → post-cure`).
+terminology issues that these metrics completely miss.
+
+Error analysis on the 25 covered documents identifies two types of errors:
+
+- **9 unique missed pairs**: a medical term is present in the English source but its
+  French equivalent is absent from the translation (e.g. `cardiorespiratory fitness →
+  capacité cardiorespiratoire`, `antimicrobial stewardship → gestion responsable des
+  antimicrobiens`). GPT-4o fails to translate these specialized terms correctly.
+
+- **6 unique extras**: a French medical term from the dictionary appears in the
+  translation but has no corresponding English term in the source (e.g. `tristesse`,
+  `post-cure`). This indicates hallucinations — GPT-4o introduces medical content
+  that was not in the original text. This is particularly concerning in a clinical
+  context, where a physician reading the translation would encounter symptoms or
+  concepts that were never mentioned by the source author. Crucially, these
+  hallucinations go completely undetected by BLEU and COMET, which only measure
+  surface fluency.
