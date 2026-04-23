@@ -23,3 +23,4 @@ secrets.py
 
 #ignore les fichiers de configuration macos
 .DS_Store
+!data/.DS_Store
