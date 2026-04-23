@@ -1,0 +1,48 @@
+{
+  "corpus_WMT24": {
+    "n_docs": 49,
+    "keys": [
+      "doc_id",
+      "text_en",
+      "translation_fr",
+      "gpt_translation"
+    ],
+    "en_avg_words": 189,
+    "en_min_words": 23,
+    "en_max_words": 356,
+    "fr_avg_words": 244,
+    "fr_min_words": 43,
+    "fr_max_words": 468
+  },
+  "merged_dico": {
+    "n_entries": 445186,
+    "fr_variants_avg": 1.64,
+    "fr_variants_max": 36,
+    "size_mb": 59.0
+  },
+  "cleaned_dico": {
+    "n_entries": 2515,
+    "fr_variants_avg": 1.48,
+    "fr_variants_max": 12,
+    "reduction_pct": 99.4,
+    "size_mb": 0.2
+  },
+  "dr_annotations": {
+    "n_docs": 25,
+    "score_avg": 4.32,
+    "score_min": 4,
+    "score_max": 5,
+    "error_types": {
+      "Terminologie incohérente": 21,
+      "Grammaire/Style": 19,
+      "Contresens": 1
+    }
+  },
+  "rag_contexts": {
+    "n_docs": 10995,
+    "avg_words": 213,
+    "min_words": 10,
+    "max_words": 3142,
+    "size_mb": 15.5
+  }
+}
