@@ -279,7 +279,7 @@ quality without clinical grounding. The low variance in physician scores (all 4�
 further limits statistical detectability, as discussed in notebook 03.
 
 **Conclusion:** MedGemma provides a more critical and differentiated evaluation than
-BLEU or COMET, and its negative correlation with BLEU is a meaningful finding —
+BLEU or MEDCON, and its negative correlation with BLEU is a meaningful finding —
 fluency and medical accuracy are not the same thing. However, its lack of correlation
 with physician judgment suggests that even a medically specialized LLM judge cannot
 fully replicate human clinical evaluation. The combination of MEDCON (terminology),
