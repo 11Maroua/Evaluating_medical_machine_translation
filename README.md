@@ -12,6 +12,8 @@ dictionary. A subset of translations was also evaluated by a medical doctor to
 assess correlation between automatic metrics and human clinical judgment.
 
 ## Project Structure
+
+```
 TER-medical-translation/
 ├── notebooks/
 │   ├── 01_medcon_evaluation.ipynb     # MEDCON + BLEU + COMET on GPT-4o
@@ -27,6 +29,7 @@ TER-medical-translation/
 │   └── paper.pdf                      # Final article
 ├── results/
 └── data/                              # See data/README.md
+```
 
 ## Data
 See [`data/README.md`](data/README.md) for details on the datasets used.
