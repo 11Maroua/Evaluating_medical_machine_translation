@@ -113,7 +113,7 @@ terminology issues that these metrics completely miss.
 Error analysis on the 25 covered documents identifies two types of errors:
 
 - **9 unique missed pairs**: a medical term is present in the English source but its
-  French equivalent is absent from the translation (e.g. `cardiorespiratory fitness →
+  French equivalent is absent from the GPT4O-translation (e.g. `cardiorespiratory fitness →
   capacité cardiorespiratoire`, `antimicrobial stewardship → gestion responsable des
   antimicrobiens`). GPT-4o fails to translate these specialized terms correctly.
 
