@@ -185,3 +185,37 @@ metrics measure more formal aspects (terminology, semantic similarity, fluency).
 This absence of correlation motivates the exploration of a **LLM-as-a-judge** approach
 (notebook 05), where a medically specialized model (MedGemma 4B) is used to evaluate
 translation quality in a way closer to human clinical reasoning.
+
+### Notebook 04 — RAG with Embeddings + Mistral API
+
+We implement a RAG-based translation system to improve medical terminology accuracy:
+- **Retrieval**: dense embeddings (`intfloat/multilingual-e5-base`) + FAISS index
+  over 10,995 French medical abstracts (`unique_contexts_for_RAG.json`)
+- **Generation**: `mistral-small-latest` via Mistral API, prompted with the top-3
+  most semantically similar French contexts (k=3)
+
+| System | MEDCON F1 | BLEU |
+|---|---|---|
+| GPT-4o | 0.398 | 49.15 |
+| RAG (Mistral + Embeddings, k=3) | 0.414 | 49.58 |
+
+The RAG system produces marginal improvements over GPT-4o (+0.016 MEDCON F1,
++0.43 BLEU), with **47 out of 49 documents showing identical scores**.
+
+These results are best interpreted as a limitation of the evaluation metrics rather
+than a failure of the RAG approach. BLEU and MEDCON operate on exact string matching
+and are fundamentally insensitive to subtle improvements in terminology naturalness,
+register, or phrasing precision — precisely the dimensions that RAG is designed to
+improve. Two translations can differ meaningfully in medical quality while producing
+identical BLEU and MEDCON scores.
+
+Furthermore, Mistral is already a strong medical translator out of the box, trained
+on large multilingual corpora that include substantial medical content. When the base
+model already produces fluent, accurate translations, in-context examples from a RAG
+system provide limited additional signal — there is little room for improvement that
+these metrics can detect.
+
+This motivates the LLM-as-a-judge approach explored in notebook 05, where MedGemma 4B
+— a model specifically trained on medical data — evaluates translation quality beyond
+surface-level metrics, assessing clinical accuracy, terminology consistency, and
+naturalness in a way that BLEU and MEDCON cannot.
