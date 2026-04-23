@@ -1,0 +1,23 @@
+# Terminologie & évaluation
+pyahocorasick==1.4.4
+sacrebleu==2.3.1
+
+# Embeddings & retrieval
+sentence-transformers==2.7.0
+faiss-cpu==1.8.0
+
+# Modèles & inférence
+transformers==4.40.0
+accelerate==0.30.0
+bitsandbytes==0.43.1
+
+# API Mistral
+mistralai==1.2.5
+
+# Data science
+numpy==1.26.4
+pandas==2.2.2
+scipy==1.13.0
+
+# COMET (optionnel — installer manuellement si besoin)
+# unbabel-comet — voir notebook pour la procédure d'installation
