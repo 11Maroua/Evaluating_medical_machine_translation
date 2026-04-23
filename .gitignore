@@ -19,3 +19,7 @@ __pycache__/
 *.key
 .env
 secrets.py
+
+
+#ignore les fichiers de configuration macos
+.DS_Store
