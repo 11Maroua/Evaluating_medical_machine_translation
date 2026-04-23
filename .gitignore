@@ -1,0 +1,21 @@
+# Données médicales sensibles
+*.json
+*.csv
+*.tsv
+
+# Sauf les fichiers de config/sample explicitement ajoutés
+!data/sample/*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Clés API
+*.key
+.env
+secrets.py
