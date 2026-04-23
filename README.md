@@ -125,3 +125,63 @@ Error analysis on the 25 covered documents identifies two types of errors:
   concepts that were never mentioned by the source author. Crucially, these
   hallucinations go completely undetected by BLEU and COMET, which only measure
   surface fluency.
+
+### Notebook 03 — Correlation with Physician Annotations
+
+25 documents were manually annotated by a medical doctor with a translation quality
+score (Likert 1–5) and three error types:
+- **Inconsistent terminology** (*Terminologie incohérente*): medical terms translated
+  inconsistently or inaccurately across the document
+- **Grammar / Style** (*Grammaire / Style*): unnatural phrasing, grammatical errors,
+  or register issues
+- **Mistranslation** (*Contresens*): semantic errors that alter the meaning of the
+  original text
+
+**Physician score distribution:**
+
+| Score | Docs |
+|---|---|
+| 4/5 | 17 (68%) |
+| 5/5 | 8 (32%) |
+| **Mean** | **4.32/5** |
+
+**Error type distribution:**
+
+| Error type | Docs | % |
+|---|---|---|
+| Inconsistent terminology | 21 | 84% |
+| Grammar / Style | 19 | 76% |
+| Mistranslation | 1 | 4% |
+| No error | 4 | 16% |
+
+The physician's assessment reveals that GPT-4o produces translations that are
+globally satisfactory — all scores are 4 or 5 out of 5, with no document rated
+below 4. This suggests that the overall meaning and structure of the medical texts
+are well preserved. However, the high rate of terminology (84%) and style (76%)
+issues indicates that translations, while clinically intelligible, lack the
+naturalness and precision expected in a professional medical context. The near-absence
+of mistranslations (4%) confirms that GPT-4o rarely alters the core meaning of the
+source text, but consistently produces output that a medical professional would
+find awkward or imprecise in terminology.
+
+**Correlation with automatic metrics:**
+
+| Metric | Mean | Pearson r | p-val | Spearman ρ | p-val |
+|---|---|---|---|---|---|
+| MEDCON F1 | 0.428 | +0.157 | 0.452 | +0.134 | 0.524 |
+| COMET-QE | 0.198 | −0.138 | 0.511 | −0.143 | 0.496 |
+| mBERT similarity | 0.851 | +0.255 | 0.218 | +0.202 | 0.333 |
+| Sentence-BERT | 0.912 | −0.087 | 0.679 | −0.131 | 0.533 |
+
+No metric correlates significantly with the physician score (all p > 0.05). mBERT
+shows the highest Pearson correlation (r=+0.255) but remains far from significance.
+COMET-QE and Sentence-BERT even show negative correlations due to very surfacic evaluation of the MT.
+
+These results are explained by two main factors: the annotated corpus is small (n=25),
+and physician scores are concentrated in a very narrow range (4–5 out of 5), which
+drastically reduces variance and makes any correlation statistically difficult to
+detect. Furthermore, the physician evaluates overall clinical quality, while automatic
+metrics measure more formal aspects (terminology, semantic similarity, fluency).
+This absence of correlation motivates the exploration of a **LLM-as-a-judge** approach
+(notebook 05), where a medically specialized model (MedGemma 4B) is used to evaluate
+translation quality in a way closer to human clinical reasoning.
