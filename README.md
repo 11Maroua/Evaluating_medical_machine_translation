@@ -219,3 +219,69 @@ This motivates the LLM-as-a-judge approach explored in notebook 05, where MedGem
 — a model specifically trained on medical data — evaluates translation quality beyond
 surface-level metrics, assessing clinical accuracy, terminology consistency, and
 naturalness in a way that BLEU and MEDCON cannot.
+
+### Notebook 05 — LLM-as-a-Judge with MedGemma 4B
+
+We use MedGemma 4B — a model specifically trained on medical data — as an automatic
+judge to evaluate translation quality beyond surface-level metrics. For each
+translation, MedGemma assigns a Likert score from 1 to 5 based on medical accuracy,
+terminology consistency, and fluency.
+
+**GPT-4o vs RAG Mistral — MedGemma scores:**
+
+| System | Mean score | Std | Min | Max |
+|---|---|---|---|---|
+| GPT-4o | 3.33/5 | 1.13 | 2 | 5 |
+| RAG (Mistral + Embeddings) | 3.45/5 | 1.11 | 2 | 5 |
+
+| Score | GPT-4o | RAG |
+|---|---|---|
+| 2/5 | 17 | 14 |
+| 3/5 | 8 | 9 |
+| 4/5 | 15 | 16 |
+| 5/5 | 9 | 10 |
+
+MedGemma rates RAG slightly higher than GPT-4o (3.45 vs 3.33), confirming the
+marginal improvement observed with MEDCON and BLEU. The RAG system scores higher
+on 13/49 documents, lower on 10/49, and equal on 26/49 — consistent with the
+near-identical performance observed in notebook 04.
+
+Notably, MedGemma's scores are substantially lower than the physician's (3.33–3.45
+vs 4.32/5). MedGemma appears more critical of translation quality, penalizing
+terminology and fluency issues that the physician — evaluating clinical acceptability
+— considered minor.
+
+**Correlation with automatic metrics (GPT-4o, n=49):**
+
+| Metric | Pearson r | p-val | Spearman ρ | p-val |
+|---|---|---|---|---|
+| MEDCON F1 | +0.043 | 0.767 | +0.042 | 0.774 |
+| BLEU | −0.305 | 0.033 | −0.233 | 0.107 |
+
+MedGemma is uncorrelated with MEDCON (r=+0.043), confirming that they measure
+different dimensions. The negative correlation with BLEU (r=−0.305, p=0.033) is
+significant and counter-intuitive: documents where GPT-4o achieves high BLEU tend
+to receive lower MedGemma scores. This suggests that surface-level fluency, as
+measured by BLEU, does not reflect medical translation quality — a high BLEU score
+can coexist with poor clinical accuracy.
+
+**Correlation with physician annotations (n=25):**
+
+| | Mean score | Pearson r | p-val | Spearman ρ | p-val |
+|---|---|---|---|---|---|
+| Physician | 4.32/5 | — | — | — | — |
+| MedGemma | 3.96/5 | +0.046 | 0.828 | +0.008 | 0.970 |
+
+MedGemma does not correlate with the physician's judgment (r=+0.046, p=0.828).
+Both evaluate on a 1–5 scale but capture different aspects: the physician assesses
+clinical acceptability in context, while MedGemma evaluates formal translation
+quality without clinical grounding. The low variance in physician scores (all 4–5)
+further limits statistical detectability, as discussed in notebook 03.
+
+**Conclusion:** MedGemma provides a more critical and differentiated evaluation than
+BLEU or COMET, and its negative correlation with BLEU is a meaningful finding —
+fluency and medical accuracy are not the same thing. However, its lack of correlation
+with physician judgment suggests that even a medically specialized LLM judge cannot
+fully replicate human clinical evaluation. The combination of MEDCON (terminology),
+BLEU (fluency), and MedGemma (medical quality judgment) provides a more complete
+picture than any single metric alone.
