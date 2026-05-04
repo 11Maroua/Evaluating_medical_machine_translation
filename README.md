@@ -73,7 +73,7 @@ See [`data/README.md`](data/README.md) for details. Key files:
 
 ### Evaluation Metrics
 
-#### Notebook 02 — Dictionary Comparison
+#### Notebook 02: Dictionary Comparison
 
 Before evaluating translation quality, we compared the raw and cleaned versions of
 the MeSH+SNOMED dictionary to determine which best supports the MEDCON-like metric.
@@ -100,7 +100,7 @@ its substantially lower noise level.
 
 ---
 
-#### Notebook 01 — MEDCON-like Evaluation on GPT-4o
+#### Notebook 01: MEDCON-like Evaluation on GPT-4o
 
 We evaluated GPT-4o translations of 49 WMT24 biomedical abstracts using MEDCON-like,
 BLEU, and COMET.
@@ -139,7 +139,7 @@ Error analysis on the 25 covered documents identifies two types of errors:
 
 ---
 
-#### Notebook 03 — Correlation with Physician Annotations
+#### Notebook 03:  Correlation with Physician Annotations
 
 25 documents were manually annotated by a medical doctor on MedGemma-27B translations
 with a quality score (Likert 1-5) and three error types:
@@ -187,15 +187,25 @@ physician scores are concentrated in a very narrow range (4-5 out of 5), which
 drastically reduces variance and makes any correlation statistically difficult to
 detect.
 
-**Point-biserial correlation between terminology error and MEDCON-like F1:**
-
+### Corrélation point-bisériale : Erreur terminologique vs MedTerm F1
 The binary terminology error flag (0/1) is correlated with MEDCON-like F1 using the
-point-biserial correlation, which is the appropriate measure for a binary vs
-continuous variable. Results are reported in the notebook.
+point-biserial correlation, and here are the results: 
+
+| Statistique | Valeur |
+|---|---|
+| n | 25 |
+| Docs avec erreur terminologie | 21 / 25 |
+| Point-bisériale r | +0,179 |
+| p-valeur | 0,391 |
+| MedTerm F1 moyen (avec erreur) | 0,462 |
+| MedTerm F1 moyen (sans erreur) | 0,250 |
+
+> Résultat non significatif (p ≥ 0,05). La corrélation est positive mais la taille réduite du sous-ensemble annoté (n=25) limite la détectabilité de tout effet.
+
 
 ---
 
-#### Notebook 05 — LLM-as-a-Judge with MedGemma 4B
+#### Notebook 05: LLM-as-a-Judge with MedGemma 4B
 We use MedGemma 4B (loaded in bfloat16, without quantization) as an automatic judge
 to evaluate translation quality. For each translation, MedGemma assigns a Likert
 score from 1 to 5 based on medical accuracy, terminology consistency, and naturalness.
@@ -237,7 +247,7 @@ quality level but MedGemma is less willing to assign the highest score.
 
 ### Translation Methods
 
-#### Notebook 04 — Mistral vs Mistral + RAG
+#### Notebook 04:  Mistral vs Mistral + RAG
 
 We compare two translation approaches using the same base model (`mistral-small-latest`):
 - **Mistral**: direct translation with a simple instruction prompt
