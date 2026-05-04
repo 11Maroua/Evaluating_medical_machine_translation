@@ -182,10 +182,7 @@ medical context.
 | Sentence-BERT | -0.087 | 0.679 | -0.131 | 0.533 |
 
 No metric correlates significantly with the physician score (all p > 0.05). These
-results are explained by two main factors: the annotated corpus is small (n=25), and
-physician scores are concentrated in a very narrow range (4-5 out of 5), which
-drastically reduces variance and makes any correlation statistically difficult to
-detect.
+results are explained by two main factors: the annotated corpus is small (n=25).
 
 ### Point-biserial correlation: Terminology error vs MedTerm F1
 
